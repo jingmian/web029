@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="msapplication-TileColor" content="#1A0066"/>
+<meta name="msapplication-TileImage" content="/images/win8_symbol_140x140.png"/>
+<title>{$SiteName/}_首页</title>
+{$MetaKeywords/}
+{$MetaDescription/}
+{ZL:Boot()/}
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link href="/dist/css/animate.min.css" rel="stylesheet"/>
+<script src="/js/scrolltopcontrol.js"></script>
+</head>
+<body>
+
+<div class="home_nav" id="home_nav">
+<div class="container">
+<nav class="navbar navbar-default">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="/"><img src="{$LogoUrl/}" alt="{$SiteName/}"></a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav navbar-right home_top_nav">
+<li class="active"><a href="/">首页</a></li>
+<li id="gid6"><a href="{ZL:GetInfoUrl(6)/}">关于氿度伞</a></li>
+<li id="ni3"><a href="{ZL:GetNodeLinkUrl(6)/}">新闻动态</a></li>
+<li id="ni4"><a href="{ZL:GetNodeLinkUrl(7)/}">活动&通知</a></li>
+<li id="gid5"><a href="{ZL:GetInfoUrl(5)/}">联系我们</a></li>
+<li class="hidden-xs"><a href="javascript:;" onClick="isSearch();"><i class="fa fa-search"></i></a></li>
+
+<li class="dropdown">
+<a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+Menu
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(4)/}">圈子</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(3)/}">地图借伞</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(19)/}">文字借伞列表</a></li>
+</ul>
+</li>
+
+</ul>
+<ul class="nav navbar-nav navbar-right home_search hidden-xs">
+<form class="navbar-form navbar-left" role="search" action="/Search/SearchList" target="_blank">
+<i class="fa fa-search"></i>
+<input type="text" class="form-control" placeholder="输入关键字，回车查询" name="keyword" />
+<a onClick="isClose();"><i class="fa fa-close" style="color:#ccc;"></i></a>
+</form>
+</ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+</div>
+</div>
+<!-- home_nav end! -->
+
+
+
+ 
+<div class="home_top">
+<div class="container">
+<div class="top_logo">
+<a href="/"><img src="{$LogoUrl/}" alt="{$SiteName/}"></a>
+<div class="top_intro"><em></em><span>总有一把为你专设的雨伞</span></div>
+</div>
+</div>
+</div>
+<!-- home_top end! -->
+
+<div class="home_column1">
+<div class="container">
+<div class="column1_t">
+<h3>带手机 就等于带伞</h3>
+<p>微信收听，极速借伞。<br>便利还伞，众包返利。</p>
+</div>
+</div>
+</div>
+<!-- home_column1 end! -->
+<div class="home_column2">
+<div class="container">
+<div class="column1_t column2_t">
+<h3>带手机 就等于带伞</h3>
+<p>一把有格调又不失温度的伞。</p>
+</div>
+</div>
+</div>
+<!-- home_column2 end! -->
+
+<div class="container home_news">
+<div class="news_title">
+<div class="line_l"></div><p>新闻与活动</p><div class="line_r"></div>
+</div>
+<div class="news_c">
+<ul>
+{ZL.Label id="首页输出新闻列表" NodeID="1" TitleNum="30" ShowNum="3" /}
+</ul>
+</div>
+</div>
+<!-- home_news end! -->
+
+<div class="home_service">
+<div class="container home_news">
+<div class="news_title">
+<div class="line_l"></div><p>快速获取氿度伞服务</p><div class="line_r"></div>
+</div>
+<ul>
+<li><a href="#"><i class="fa fa-umbrella fa-3x"></i><br>借伞网点</a></li>
+<li><a href="#"><i class="fa fa-mortar-board fa-3x"></i><br>加入我们</a></li>
+<li><a href="#"><i class="fa fa-user fa-3x"></i><br>会员中心</a></li>
+<li><a href="#"><i class="fa fa-share-alt fa-3x"></i><br>合作联盟</a></li>
+<li><a href="#"><i class="fa fa-laptop fa-3x"></i><br>业务系统</a></li>
+</ul>
+</div>
+</div>
+<!-- home_column2 end!-->
+
+<div class="footer">
+<div class="container">
+<div class="foot_l">
+<p>联系电话: 0791-88106867</p>
+<p>公司名称: 江西省众享互联网科技有限公司</p>
+<p>公司地址: 江西省南昌市青山湖区上海路699文化创意园区阿里巴巴三楼</p>
+</div>
+<div class="QRcode"><img src="{$CssDir/}images/QRcode.jpg" alt="微信公众号"><p>关注微信公众号</p></div>
+</div>
+</div>
+<div class="foot_copy">
+<p class="container copyright">{$Copyright/}</p>
+</div>
+</body>
+</html>
+
+
+<script>
+//检测固顶事件
+var IO=document.getElementById('home_nav'),Y=IO,H=0,IE6;
+IE6=window.ActiveXObject&&!window.XMLHttpRequest;
+while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+if(IE6)
+    IO.style.cssText="position:absolute;top:expression(this.fix?(document"+
+        ".documentElement.scrollTop-(this.javascript||"+H+")):0)";
+window.onscroll=function (){
+    var d=document,s=Math.max(d.documentElement.scrollTop,document.body.scrollTop);
+     if(s>H&&IO.fix||s<=H&&!IO.fix)return;
+    if(!IE6)IO.style.position=IO.fix?"":"fixed";        
+    IO.fix=!IO.fix;
+    
+};
+try{document.execCommand("BackgroundImageCache",false,true)}catch(e){};
+
+
+
+//手机下右侧导航菜单效果
+$(function () {
+    $('button.navbar-toggle').click(function () {
+        $('body').toggleClass('out');
+        $('nav.navbar-fixed-top').toggleClass('out');
+        if ($('body').hasClass('out')) {
+            $(this).focus();
+        }
+        else {
+            $(this).blur();
+        }
+    });
+});
+$(document).click(function (e) {
+    if (!$(e.target).closest('.navbar-collapse, button.navbar-toggle').length && $('body').hasClass('out')) {
+        e.preventDefault();
+        $('button.navbar-toggle').trigger('click');
+    }
+}).keyup(function (e) {
+    if (e.keyCode == 27 && $('body').hasClass('out')) {
+        $('button.navbar-toggle').trigger('click');
+    }
+});
+
+
+$(window).scroll(function(){
+	if($(window).scrollTop()>0){
+		$(".home_nav").addClass("active")
+        $(".home_nav li a").css("color","#333");
+        $(".home_nav .home_search form>i").css("color","#ccc");
+        $(".home_search .fa fa-close").css("color","#ccc");
+	}
+	else{
+		$(".home_nav").removeClass("active");
+        $(".home_nav .home_search form>i").css("color","#fff");
+        $(".home_search .fa fa-close").css("color","#fff");
+
+
+
+	}
+});
+
+/*显示搜索框*/
+function isSearch(){
+    $(".home_search").css("opacity","1").css("z-index","1").css("right","0");
+    $(".home_top_nav").fadeOut(200);
+    $(".home_search .form-control").focus();
+}
+/*关闭搜索框*/
+function isClose(){
+    $(".home_search").css("opacity","0").css("z-index","-1").css("right","-1em");
+    $(".home_top_nav").fadeIn(1000);
+}
+</script>

@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>318</LabelID>
+    <LabelName>全站底部</LabelName>
+    <LabelType>1</LabelType>
+    <LabelCate>静态标签</LabelCate>
+    <LabelDesc />
+    <LabelParam />
+    <LabelTable />
+    <LabelField />
+    <LabelWhere />
+    <LabelOrder />
+    <LabelContent>&lt;div class="footer"&gt;
+&lt;div class="container"&gt;
+&lt;div class="foot_l"&gt;
+&lt;p&gt;联系电话: 0791-88106867&lt;/p&gt;
+&lt;p&gt;公司名称: 江西省众享互联网科技有限公司&lt;/p&gt;
+&lt;p&gt;公司地址: 江西省南昌市青山湖区上海路699文化创意园区阿里巴巴三楼&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="QRcode"&gt;&lt;img src="{$CssDir/}images/QRcode.jpg" alt="微信公众号"&gt;&lt;p&gt;关注微信公众号&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="foot_copy"&gt;
+&lt;p class="container copyright"&gt;{$Copyright/}&lt;/p&gt;
+&lt;/div&gt;</LabelContent>
+    <LabelCount />
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType />
+    <ConnectString />
+  </Table>
+</NewDataSet>

@@ -1,0 +1,143 @@
+﻿@using ZoomLa.Model;
+@using ZoomLa.BLL;
+@using ZoomLa.Common
+@{
+    Layout = "~/Areas/User/Views/Shared/_layout.cshtml";
+    M_UserInfo mu = ViewBag.mu;
+    M_Group gpMod = ViewBag.gpMod;
+    M_PointGrounp pointMod = ViewBag.pointMod;
+}
+@functions{
+    B_User buser = new B_User();
+    M_UserInfo mu = new M_UserInfo();
+    B_Group gpBll = new B_Group();
+    B_Model bmodel = new B_Model();
+    B_ModelField Fll = new B_ModelField();
+	
+    public string GetUNname(string uid)
+    {
+    	mu=buser.GetSelect(DataConverter.CLng(uid));
+    	string truename = mu.UserName;
+        if (!string.IsNullOrEmpty(mu.TrueName))
+        {
+            truename = mu.TrueName;
+        }
+        return truename;
+    }
+    public string GetGroupField(M_UserInfo mu)
+    {
+        int UserModelID = DataConverter.CLng(gpBll.GetGroupModel(mu.GroupID));
+        M_ModelInfo modelinfo = bmodel.GetModelById(UserModelID);
+        if (modelinfo == null || modelinfo.IsNull || string.IsNullOrEmpty(modelinfo.TableName)) { return ""; }
+        else
+        {
+            return  Fll.InputallHtml(UserModelID, 0, new ModelConfig()
+            {
+                ValueDT = bmodel.SelUserModelField(UserModelID, mu.UserID)
+            });
+        }
+    }
+}
+@section head
+{
+<title>注册信息</title>
+<style>
+body { background:#F8F8F8;}
+.weui-navbar { position:relative;}
+.weui-cell__bd p { margin-bottom:0;}
+</style>
+}
+@section content{
+<div class="container padding0">
+<div class="weui-cells margin_top5">
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>用户ID</p></div>
+<div class="weui-cell__ft">@mu.UserID</div>
+</div>
+
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>用户名</p></div>
+<div class="weui-cell__ft">@mu.UserName</div>
+</div>
+
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>会员组</p></div>
+<div class="weui-cell__ft">@gpMod.GroupName</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>加入时间</p></div>
+<div class="weui-cell__ft">@mu.JoinTime.ToString("yyyy-MM-dd HH:mm:ss")</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>注册时间</p></div>
+<div class="weui-cell__ft">@mu.RegTime.ToString("yyyy-MM-dd HH:mm:ss")</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>登录次数</p></div>
+<div class="weui-cell__ft">@mu.LoginTimes</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>最近登录时间</p></div>
+<div class="weui-cell__ft">@mu.LastLoginTimes.ToString("yyyy-MM-dd HH:mm:ss")</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>最近登录IP</p></div>
+<div class="weui-cell__ft">@mu.LastLoginIP</div>
+</div>
+<div class="weui-cell">
+<div class="weui-cell__bd"><p>推荐人</p></div>
+<div class="weui-cell__ft">@GetUNname(mu.ParentUserID)</div>
+</div>
+</div>
+<div class="weui-cells margin_top5">
+<a class="weui-cell weui-cell_access" href="ConsumeDetail?SType=1">
+<div class="weui-cell__bd"><p>余额</p></div>
+<div class="weui-cell__ft">@mu.Purse.ToString("f2")</div>
+</a>
+<a class="weui-cell weui-cell_access" href="ConsumeDetail?SType=2">
+<div class="weui-cell__bd"><p>已交押金</p></div>
+<div class="weui-cell__ft">@mu.SilverCoin.ToString("f2")</div>
+</a>
+</div>
+<div class="weui-btn-area">
+<a href="/User/info/UserBase" class="weui-btn" style="background:#ee7218; color:#fff;">修改信息</a>
+</div>
+</div>
+}
+@section script{
+    <script src="/JS/Controls/ZL_Dialog.js"></script>
+    <script>
+        $("#foot_user").addClass("weui-bar__item_on");
+        $("#mimenu_btn").click(function (e) {
+            if ($(".user_mimenu_left").width() > 0) {
+                $(".user_mimenu_left ul").fadeOut(100);
+                $(".user_mimenu_left").animate({ width: 0 }, 200);
+            }
+            else {
+                $(".user_mimenu_left").animate({ width: 150 }, 300);
+                $(".user_mimenu_left ul").fadeIn();
+            }
+        });
+        //会员搜索
+        $("#sub_btn").click(function (e) {
+            if ($("#key").val() == "")
+                alert("搜索关键字为空!");
+            else
+                window.location = "/User/SearchResult?key=" + escape($("#key").val());
+        });
+        //搜索回车事件
+        function IsEnter(obj) {
+            if (event.keyCode == 13) {
+                $("#sub_btn").click(); return false;
+
+            }
+        }
+        function showGive(stype) {
+            ShowComDiag("/User/Money/GiveMoney?stype=" + stype, "赠送金额");
+        }
+        function showMoneyConver() {
+            ShowComDiag("/BU/Money/MoneyConver.aspx", "金额兑换");
+        }
+    </script>
+
+}

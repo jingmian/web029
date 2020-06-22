@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>350</LabelID>
+    <LabelName>获取指定店铺用户ID</LabelName>
+    <LabelType>2</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>GeneralID,0,1,店铺ID</LabelParam>
+    <LabelTable>ZL_CommonModel LEFT JOIN ZL_Store_reg ON ZL_CommonModel.ItemID=ZL_Store_reg.ID</LabelTable>
+    <LabelField>UserID</LabelField>
+    <LabelWhere>GeneralID=@GeneralID</LabelWhere>
+    <LabelOrder />
+    <LabelContent>{Field="UserID"/}</LabelContent>
+    <LabelCount />
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_CommonModel","tb_s":"ZL_Store_reg"}</DataSourceType>
+    <ConnectString />
+  </Table>
+</NewDataSet>

@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>326</LabelID>
+    <LabelName>微信底部</LabelName>
+    <LabelType>1</LabelType>
+    <LabelCate>静态标签</LabelCate>
+    <LabelDesc />
+    <LabelParam />
+    <LabelTable />
+    <LabelField />
+    <LabelWhere />
+    <LabelOrder />
+    <LabelContent>
+
+&lt;div style="height:7em;"&gt;&lt;/div&gt;
+&lt;div class="weui-tabbar wei-footer"&gt;
+&lt;a href="/Class_4/NodeElite.aspx" class="weui-tabbar__item" id="foot_home"&gt;
+&lt;i class="fa fa-home  weui-tabbar__icon "&gt;&lt;/i&gt;
+&lt;p class="weui-tabbar__label "&gt;首页&lt;/p&gt;
+&lt;/a&gt;
+&lt;a href="/Class_19/Default.aspx" class="weui-tabbar__item" id="foot_jie"&gt;
+&lt;i class="fa fa-umbrella   weui-tabbar__icon"&gt;&lt;/i&gt;
+&lt;p class="weui-tabbar__label"&gt;借伞&lt;/p&gt;
+&lt;/a&gt;
+&lt;a href="/Class_4/Default.aspx" class="weui-tabbar__item" id="foot_quan"&gt;
+&lt;i class="fa fa-life-ring  weui-tabbar__icon"&gt;&lt;/i&gt;
+&lt;p class="weui-tabbar__label"&gt;圈子&lt;/p&gt;
+&lt;/a&gt;
+&lt;a href="/User" class="weui-tabbar__item" id="foot_user"&gt;
+&lt;i class="fa fa-user  weui-tabbar__icon"&gt;&lt;/i&gt;
+&lt;p class="weui-tabbar__label"&gt;我&lt;/p&gt;
+&lt;/a&gt;
+&lt;/div&gt;</LabelContent>
+    <LabelCount />
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType />
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

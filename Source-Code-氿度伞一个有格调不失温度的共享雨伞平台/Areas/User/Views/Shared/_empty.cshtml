@@ -1,0 +1,34 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link type="text/css" rel="stylesheet" href="/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/dist/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="/App_Themes/control.css" />
+<link type="text/css" rel="stylesheet" href="/App_Themes/User.css" />
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<link rel="stylesheet" href="/Template/Umbrella/style/global.css">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+<script src="/JS/jquery.min.js"></script>
+<script src="/JS/jquery.validate.min.js"></script>
+<script src="/JS/ZL_Regex.js"></script>
+<script src="/JS/ICMS/ZL_Common.js"></script>
+<script src="/dist/js/bootstrap.min.js"></script>
+<link href="/Plugins/Third/alert/sweetalert.css" rel="stylesheet" />
+<script src="/Plugins/Third/alert/sweetalert.min.js?v=1"></script>
+@RenderSection("head")
+</head>
+<body>
+@RenderSection("content")
+
+@MvcHtmlString.Create(Call.GetLabel("{ZL.Label id=\"微信底部\"/}"))
+
+@RenderSection("script")
+</body>
+</html>

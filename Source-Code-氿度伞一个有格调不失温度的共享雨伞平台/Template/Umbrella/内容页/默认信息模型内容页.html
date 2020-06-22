@@ -1,0 +1,70 @@
+﻿{ZL.Source id="信息模型数据源标签"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{SField sid="信息模型数据源标签" FD="Title" page="0"/}</title> 
+<meta name="Keywords" content="{SField sid="信息模型数据源标签" FD="Tagkey" page="0"/}">
+{ZL:Boot()/}
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<script src="/js/scrolltopcontrol.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/dist/css/weui.min.css" />
+<style>
+.wei-footer { position:fixed;}
+.info_content { padding:2em; margin-top:-20%; background:#FFF; min-height:40em; box-shadow:0 4px 20px 0 rgba(0, 0, 0, 0.1);}
+.info_content_t { text-align:center;}
+.info_content_t .myAbbr { border-top:1px solid #D1D1D1; height:3em; line-height:3em;}
+</style>
+</head>
+<body>
+{ZL.Label id="全站头部"/} 
+
+<div class="about_banner"></div>
+
+<div class="container padding0_xs">
+<div class="info_content">
+<div class="info_content_t">
+<h3>{SField sid="信息模型数据源标签" FD="Title" page="0"/}</h3>
+<div class="myAbbr">
+<span><i class="fa fa-clock-o"></i> 发布时间：{ZL:FormatDate({SField sid="信息模型数据源标签" FD="CreateTime" page="0"/},yyyy-MM-dd)/}</span>
+</div>
+</div>
+<div class="info_content_c">
+{SField sid="信息模型数据源标签" FD="synopsis" page="0"/}
+
+</div>
+<div class="info_content_p">
+<div class="alert alert-info">
+联系人：{SField sid="信息模型数据源标签" FD="lxr" page="0"/}<br/>
+联系电话：{SField sid="信息模型数据源标签" FD="tel" page="0"/}<br/>
+QQ/MSN：{SField sid="信息模型数据源标签" FD="qq" page="0"/}<br/>
+<a href="tel:{SField sid="信息模型数据源标签" FD="tel" page="0"/}" class="btn btn-success">拨打电话</a>
+</div>
+</div>
+<div class="iframe_comm">
+<iframe id="comm_ifr" scrolling="no" onload="this.height = $(this).contents().height() + 'px';" src="/Comments/CommentFor?ID={SField sid="信息模型数据源标签" FD="GeneralID"/}" width="100%" align="middle" height="100%" frameborder="0"></iframe>
+</div>
+</div>
+</div>
+
+<div class="hidden-xs">{ZL.Label id="全站底部"/}</div>
+<div class="visible-xs">{ZL.Label id="微信底部"/}</div>
+</body>
+</html>
+<script>
+//检测固顶事件
+var IO=document.getElementById('home_nav'),Y=IO,H=0,IE6;
+IE6=window.ActiveXObject&&!window.XMLHttpRequest;
+while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+if(IE6)
+    IO.style.cssText="position:absolute;top:expression(this.fix?(document"+
+        ".documentElement.scrollTop-(this.javascript||"+H+")):0)";
+window.onscroll=function (){
+    var d=document,s=Math.max(d.documentElement.scrollTop,document.body.scrollTop);
+     if(s>H&&IO.fix||s<=H&&!IO.fix)return;
+    if(!IE6)IO.style.position=IO.fix?"":"fixed";        
+    IO.fix=!IO.fix;
+};
+try{document.execCommand("BackgroundImageCache",false,true)}catch(e){};
+
+
+</script>

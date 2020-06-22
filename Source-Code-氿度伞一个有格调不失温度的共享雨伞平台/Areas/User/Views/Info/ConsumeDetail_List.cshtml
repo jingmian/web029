@@ -1,0 +1,24 @@
+﻿@using System.Data
+@using ZoomLa.BLL.Helper
+@using ZoomLa.SQLDAL
+@model ZoomLa.SQLDAL.SQL.PageSetting
+@{
+    Model.cols = 3;
+    Model.url = "ConsumeDetail";
+}
+<div id="EGV">
+<div class="weui-panel weui-panel_access">
+<div class="weui-panel__hd">押金变更明细</div>
+<div class="weui-panel__bd">
+@foreach (DataRow dr in Model.dt.Rows)
+{
+<div class="weui-media-box weui-media-box_text">
+    <h4 class="weui-media-box__title">金额变更：@DataConvert.CDouble(dr["score"]).ToString("f2")</h4>
+    <p class="weui-media-box__desc">详情备注：@dr["Detail"]</p>
+    <p class="weui-media-box__desc">日期：@DateHelper.ToDate(dr["HisTime"])</p>
+</div>
+}
+@Html.Partial("_page", Model)
+</div>
+</div>
+</div>

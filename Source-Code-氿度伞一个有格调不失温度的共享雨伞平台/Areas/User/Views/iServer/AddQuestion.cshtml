@@ -1,0 +1,115 @@
+﻿@using ZoomLa.Common
+@using ZoomLa.BLL
+@using ZoomLa.Model
+@model ZoomLa.Model.M_IServer
+@{
+    B_IServer isBll = new B_IServer();
+    M_UserInfo ccmu = new B_User().SelReturnModel(DataConverter.CLng(Request["uid"]));
+    var list = @MVCHelper.ToSelectList(isBll.TypeArr, isBll.TypeArr);
+}
+@section head{
+<title>提交问题</title>
+<script type="text/javascript" src="/Plugins/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/Plugins/Ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="/JS/DatePicker/WdatePicker.js"></script>
+<style>
+.breadcrumb { background:#EEE;}
+.width1100 { width:inherit;}
+</style>
+}
+@section content{
+<div id="pageflag" data-nav="index" data-ban="cnt"></div>
+<div class="container margin_t5">
+<ol class="breadcrumb">
+<li><a title="会员中心" href="/User/Default">会员中心</a></li>
+<li><a href="/User/iServer/FiServer">有问必答</a></li>
+<li class="active">提交问题</li>
+</ol>
+</div>
+<div class="container padding0_xs">
+<div class="weui-cells__title">提交问题</div>
+<form method="post" action="@MVCHelper.GetAction("Question_Add",Request)">
+<input type="text" id="mydate_t" name="mydate_t" class="form-control text_md hidden" onfocus="$('#date_sel').val('-1');WdatePicker({dateFmt:'yyyy/MM/dd'})" value="@DateTime.Now.ToString("yyyy/MM/dd")" />
+<input type="hidden" name="CCUser_Hid hidden" id="CCUser_Hid" value="@ccmu.UserID" />
+<div class="weui-cells weui-cells_form">
+<div class="weui-cell">
+<div class="weui-cell__hd">
+<label for="" class="weui-label">优先级</label>
+</div>
+<div class="weui-cell__bd">
+<label><input type="radio" name="Priority" value="低" checked="checked" />低</label>
+<label><input type="radio" name="Priority" value="中" />中</label>
+<label><input type="radio" name="Priority" value="高" />高</label>
+</div>
+</div>
+
+<div class="weui-cell hidden">
+<div class="weui-cell__hd"><label class="weui-label">问题标题</label></div>
+<div class="weui-cell__bd">
+<input class="weui-input" placeholder="" id="title_t" name="title_t"   value="@MvcHtmlString.Create(Call.GetLabel("{ZL.Label id=\"获取当前用户真实姓名\" /}"))的提问" />
+</div>
+</div>
+
+<div class="weui-cell">
+<div class="weui-cell__bd">
+<textarea class="weui-textarea" placeholder="问题内容" rows="5" id="txtContent" name="txtContent">@Request.QueryString["con"]</textarea>
+</div>
+</div>
+
+<div class="weui-cell weui-cell_select weui-cell_select-after">
+<div class="weui-cell__hd">
+<label for="" class="weui-label">问题类别</label>
+</div>
+<div class="weui-cell__bd">
+@Html.DropDownListFor(m => m.Type, list,new { @class= "weui-select" })
+</div>
+</div>
+<div class="weui-cell">
+<button type="button" id="upfile_btn" class="weui-btn weui-btn_default" />选择文件</button>
+<input type="hidden" id="Attach_Hid" name="Attach_Hid" />
+</div>
+</div>
+<div style="margin-top:10px;" id="uploader" class="uploader"><ul class="filelist"></ul></div>
+<div class="weui-btn-area"><button class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips">确定</button></div>
+<div class="weui-btn-area"><button class="weui-btn weui-btn_default" href="/User">取消</button></div>
+<div class="weui-btn-area"></div>
+}
+@section script{
+<link href="/JS/Controls/ZL_Webup.css" rel="stylesheet" />
+<script type="text/javascript" src="/JS/Controls/ZL_Dialog.js"></script>
+<script type="text/javascript" src="/JS/Controls/ZL_Webup.js"></script>
+<script type="text/javascript">
+    $(function () {
+        ZL_Webup.config.json.accept = 'img';
+        $("#upfile_btn").click(ZL_Webup.ShowFileUP);
+        $("form").validate({//
+            rules: {
+                title_t: { required: true },
+                txtContent: { required: true }
+            },
+            message: {
+                title_t: { required: "提问标题不能为空!" },
+                txtContent: { required: "提问内容不能为空!" }
+            }
+        });
+    })
+    function AddAttach(file, ret, pval) { return ZL_Webup.AddAttach(file, ret, pval); }
+    function AddDate(dp) {
+        var d = new Date();
+        if (parseInt($(dp).val()) == -1) return;
+        d.setDate(d.getDate() + parseInt($(dp).val()));
+        var month = d.getMonth() + 1;
+        if (month < 10) { month = "0" + month; }
+        $("#mydate_t").val(d.getUTCFullYear() + "/" + month + "/" + d.getDate());
+    }
+    function SelUser() {
+        comdiag.maxbtn = false;
+        ShowComDiag("/Common/Dialog/SelGroup.aspx?selmode=single", "选择用户");
+    }
+    function UserFunc(list, select) {
+        $("#CCUser_Hid").val(list[0].UserID);
+        $("#CCUser_T").val(list[0].UserName);
+        CloseComDiag();
+    }
+</script>
+}

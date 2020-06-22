@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>316</LabelID>
+    <LabelName>首页输出新闻列表</LabelName>
+    <LabelType>2</LabelType>
+    <LabelCate>黄页</LabelCate>
+    <LabelDesc />
+    <LabelParam>NodeID,0,1,节点ID|TitleNum,30,1,标题长度|ShowNum,3,1,显示数</LabelParam>
+    <LabelTable>ZL_CommonModel LEFT JOIN ZL_C_Article ON ZL_CommonModel.ItemID=ZL_C_Article.ID</LabelTable>
+    <LabelField>ZL_CommonModel.GeneralID,ZL_CommonModel.NodeID,ZL_CommonModel.Title,ZL_CommonModel.TopImg,ZL_C_Article.synopsis,CreateTime</LabelField>
+    <LabelWhere>(NodeID=@NodeID or FirstNodeID=@NodeID) and Status=99</LabelWhere>
+    <LabelOrder />
+    <LabelContent>{Repeate}
+&lt;li&gt;
+&lt;div class="media"&gt;
+&lt;div class="media-left"&gt;
+&lt;div class="news_date"&gt;
+&lt;b&gt;{ZL:FormatDate({Field="CreateTime"/},dd)/}&lt;/b&gt;&lt;br&gt;
+&lt;span&gt;{ZL:FormatDate({Field="CreateTime"/},yyyy-MM)/}&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="media-body"&gt;
+&lt;a href="{ZL:GetInfoUrl({Field="GeneralID"/})/}" class="new_pic"&gt;
+&lt;img class="media-object" src="{Field="TopImg"/}" alt="{Field="Title"/}" onerror="javascript:this.src='/UploadFiles/nopic.gif'"/  &gt;
+&lt;/a&gt;
+&lt;h4 class="media-heading"&gt;&lt;a href="{ZL:GetInfoUrl({Field="GeneralID"/})/}"&gt;{ZL:CutText({Field="Title"/},@TitleNum,...)/}&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;{Field="synopsis"/}&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+{/Repeate}</LabelContent>
+    <LabelCount>@ShowNum</LabelCount>
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_CommonModel","tb_s":"ZL_C_Article"}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

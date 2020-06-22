@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>348</LabelID>
+    <LabelName>输出报修订单_后台分页</LabelName>
+    <LabelType>4</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>ShowNum,20,1,显示数</LabelParam>
+    <LabelTable>ZL_Orderinfo</LabelTable>
+    <LabelField>ID,OrderNo,AddTime,Extend,ExpTime,StoreID,Promoter,OrderStatus,Ordermessage,Ordersamount,Settle,Userid</LabelField>
+    <LabelWhere>Ordertype=10 And OrderStatus=0</LabelWhere>
+    <LabelOrder>AddTime DESC</LabelOrder>
+    <LabelContent>{Repeate}
+&lt;tr&gt;
+&lt;td&gt;{Field="ID"/}&lt;/td&gt;
+&lt;td&gt;{Field="OrderNo"/}&lt;/td&gt;
+&lt;td&gt;{Field="Userid"/}&lt;/td&gt;
+&lt;td&gt;&lt;a href="javascript:;" onclick="user.showuinfo({Field="Userid"/})"&gt;{ZL.Label id="获取指定用户真实姓名" UserID="{Field="Userid"/}" /}&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;{Field="AddTime"/}&lt;/td&gt;
+&lt;td&gt;{Field="ExpTime"/}&lt;/td&gt;
+&lt;td&gt;{ZL.Label id="输出指定店铺名称" UserShopID="{Field="StoreID"/}" /}&lt;/td&gt;
+&lt;td&gt;{ZL.Label id="输出指定店铺名称" UserShopID="{Field="Settle"/}" /}&lt;/td&gt;
+&lt;/tr&gt;
+{/Repeate}
+&lt;tr&gt;
+&lt;td colspan="8"&gt;{ZL.Page id="响应式列表分页v4"/}&lt;/td&gt;
+&lt;/tr&gt;</LabelContent>
+    <LabelCount>@ShowNum</LabelCount>
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_Orderinfo","tb_s":""}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

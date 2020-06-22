@@ -1,0 +1,217 @@
+﻿{ZL.Source id="店铺模型数据源标签"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{SField sid="店铺模型数据源标签" FD="StoreName" page="0"/}</title>
+{ZL:Boot()/}
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<link href="/Plugins/Third/alert/sweetalert.css" rel="stylesheet" />
+<script src="/Plugins/Third/alert/sweetalert.min.js?v=1"></script>
+<!--<script src="/JS/Mobile/vconsole.min.js"></script>-->
+<style>
+.wei-footer { position:fixed; bottom:0;}
+.site_c .media-left a { display:block; width:5em; height:5em; overflow:hidden; text-align:center}
+.site_c .media-left a img { width:100%; height:100%; border-radius:50%; overflow:hidden;}
+.site_c .media-body h4 { margin-bottom:0; height:2em; line-height:2em;}
+.site_c .media-body p { margin-bottom:0; height:2em; line-height:2em; overflow:hidden;}
+</style>
+</head>
+<body style="background:#eee;">
+{ZL.Label id="全站头部"/}
+
+<div class="site_banner">
+<div class="site_c container">
+
+<div class="media">
+<div class="media-left media-middle">
+<a href="#"><img src="/uploadfiles/{SField sid="店铺模型数据源标签" FD="logo" page="0"/}" alt="{SField sid="店铺模型数据源标签" FD="Title" page="0"/}"></a>
+</div>
+<div class="media-body media-middle">
+<h4>{SField sid="店铺模型数据源标签" FD="Title" page="0"/}</h4>
+<p><i class="fa fa-user"></i> 联系人:{SField sid="店铺模型数据源标签" FD="lxr" page="0"/}</p>
+<p><i class="fa fa-phone"></i> 电话:{SField sid="店铺模型数据源标签" FD="tel" page="0"/}</p>
+<p><i class="fa fa-map-marker"></i> <a href="javascript:;" onClick="ShowMap({SField sid="店铺模型数据源标签" FD="map" page="0"/})">地址:{SField sid="店铺模型数据源标签" FD="addr" page="0"/}</a></p>
+</div>
+</div>
+</div>
+</div>
+<!-- site_banner end! -->
+
+<div class="container padding0_xs">
+<div class="site_san_type">
+<i class="fa fa-umbrella"></i>
+<span>当前共有<label id="ue_num">{ZL.Label id="根据店铺ID抽取库存" StoreID="{SField sid="店铺模型数据源标签" FD="GeneralID" page="0"/}" /}</label>把伞</span>
+<div class="clearfix"></div>
+</div>
+</div>
+<!-- site_san_type end! -->
+
+<div class="container shop_list">
+<div class="row ">
+{ZL.Label id="输出商品列表_带图" NodeID="19" UserShopID="{SField sid="店铺模型数据源标签" FD="GeneralID" page="0"/}" /}
+</div>
+</div>
+<!-- site_intro end! -->
+<form action="/Cart/FastOrder.aspx" method="post" class="hidden" id="borrow_btn">
+<input type="text" id="Proname" value="共享雨伞" name="Proname" />
+<input type="text" id="Pronum"   value="1" name="Pronum" />
+<input type="text" id="ProClass" value="1" name="ProClass" />
+<input type="text" id="Price" value="29" name="Price" />
+</form>
+
+{ZL.Label id="微信底部"/}
+</body>
+</html>
+<!--<script src="/JS/Mobile/vconsole.min.js"></script>-->
+<link href="/Plugins/Third/alert/sweetalert.css" rel="stylesheet" />
+<script src="/Plugins/Third/alert/sweetalert.min.js?v=1"></script>
+<script src="/JS/Modal/APIResult.js"></script>
+<script>
+wx.config({
+	debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	{ZL:WXJSSign(1)/},
+	jsApiList: ["getLocation","openLocation","checkJsApi","scanQRCode"], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+wx.ready(function () {
+	// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+});
+    var ueclient = { url: "/BU/Client.ashx?action=" };
+    ueclient.init=function(){
+        var num=parseInt($("#ue_num").text());
+        if(!num||num<1)
+        {
+            //var btn=$(".caption .btn")[0];
+            //btn.disabled = true;
+            //$(btn).addClass("disabled");
+            $(".site_san_type i").addClass("fa-rotate-180").css("color","#999");
+            $("#ue_num").text(0)
+        }
+    }
+    ueclient.lend = function () {
+        var ref = this;
+        //-----
+        var num=parseInt($("#ue_num").text());
+        if(!num||num<1){
+            swal({ title:"提示", text: "该网点的伞已经借光了", type: "warning" });
+            return false;}
+
+        var storeID={SField sid="店铺模型数据源标签" FD="GeneralID" page="0"/};
+        var proID={ZL.Label id="获取指定店铺商品ID" UserShopID="{SField sid="店铺模型数据源标签" FD="GeneralID" page="0"/}" /};
+        $.post(ref.url + "ue_lend", { "storeID": storeID, "proID": proID, num: 1 }, function (data) {
+            var model = APIResult.getModel(data);
+            if (APIResult.isok(model)) {
+                location = "/Class_17/NodeNews.aspx";
+                /*swal({ title: "借伞成功", "text": "是否前去查看我的雨伞", type: "success", showCancelButton: true, confirmButtonColor:"#ff7000", confirmButtonText: "查看", closeOnConfirm: false }, function () { location = "/BU/UE/MyLend.aspx"; });*/
+            }
+            else {
+                switch (model.result.type) {
+                    case 1:
+                    case 2:
+                        location = "/PayOnline/wxpay_mp.aspx?payno="+model.result.payno;
+                        break;
+                    default:
+                        
+                        alert(data);
+                        break;
+                }
+            }
+        })
+    }
+        ueclient.init();
+var uestore = { url: "/BU/Store.ashx?action=" };
+
+
+/*
+function borrow_san(){
+    if({ZL.Label id="获取当前用户已支付代购订单数" /}>=1){
+        if({ZL.Label id="输出用户余额" /}>=9){
+            $("#borrow_btn").submit();
+        }else{
+            swal({
+              title: "账户余额不足",
+              text: "请保证账户余额大于或等于9元",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "前往充值",
+              closeOnConfirm: false
+            },
+            function(){
+                window.location.href="/PayOnline/SelectPayPlat.aspx";
+            });
+        
+        }
+    }else $("#borrow_btn").submit();
+}
+*/
+
+//手机下右侧导航菜单效果
+$(function () {
+    $('button.navbar-toggle').click(function () {
+        $('body').toggleClass('out');
+        $('nav.navbar-fixed-top').toggleClass('out');
+        if ($('body').hasClass('out')) {
+            $(this).focus();
+        }
+        else {
+            $(this).blur();
+        }
+    });
+});
+$(document).click(function (e) {
+    if (!$(e.target).closest('.navbar-collapse, button.navbar-toggle').length && $('body').hasClass('out')) {
+        e.preventDefault();
+        $('button.navbar-toggle').trigger('click');
+    }
+}).keyup(function (e) {
+    if (e.keyCode == 27 && $('body').hasClass('out')) {
+        $('button.navbar-toggle').trigger('click');
+    }
+});
+
+//检测固顶事件
+var IO=document.getElementById('home_nav'),Y=IO,H=0,IE6;
+IE6=window.ActiveXObject&&!window.XMLHttpRequest;
+while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+if(IE6)
+    IO.style.cssText="position:absolute;top:expression(this.fix?(document"+
+        ".documentElement.scrollTop-(this.javascript||"+H+")):0)";
+window.onscroll=function (){
+    var d=document,s=Math.max(d.documentElement.scrollTop,document.body.scrollTop);
+     if(s>H&&IO.fix||s<=H&&!IO.fix)return;
+    if(!IE6)IO.style.position=IO.fix?"":"fixed";        
+    IO.fix=!IO.fix;
+    
+};
+try{document.execCommand("BackgroundImageCache",false,true)}catch(e){};
+
+function ShowMap(lng,lat){
+    //转换百度坐标为腾讯坐标
+	var str="";
+    qq.maps.convertor.translate(new qq.maps.LatLng(lat,lng), 3, function(res){
+		str=res.toString();
+		wx.openLocation({
+			latitude: parseFloat(str.split(",")[0]), // 纬度，浮点数，范围为90 ~ -90
+			longitude: parseFloat(str.split(",")[1]), // 经度，浮点数，范围为180 ~ -180。
+			name: '{SField sid="店铺模型数据源标签" FD="StoreName" page="0"/}', // 位置名
+			address: '{SField sid="店铺模型数据源标签" FD="addr" page="0"/}', // 地址详情说明
+			scale: 28, // 地图缩放级别,整形值,范围从1~28。默认为最大
+			infoUrl: '{$SiteURL/}/Store/StoreIndex?id={SField sid="店铺模型数据源标签" FD="GeneralID" page="0"/}' // 在查看位置界面底部显示的超链接,可点击跳转
+		});
+    });
+}
+
+/*扫描二维码*/
+function qrcode() {
+    wx.scanQRCode({
+        needResult: 1,
+        scanType: ["qrCode"],
+        success: function (res) {
+            window.location.href=res.resultStr;
+        }
+    })
+}
+</script>

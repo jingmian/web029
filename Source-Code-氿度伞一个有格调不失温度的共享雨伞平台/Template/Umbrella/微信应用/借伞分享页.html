@@ -1,0 +1,84 @@
+{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>氿度伞共享雨伞</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<style>
+.umb { position:relative; height:100vh;}
+.umb_pic { position:absolute; top:40%; width:100%; text-align:center; -webkit-transform:translate(0,-70%); transform:translate(0,-70%);}
+.umb_pic img { width:60%;}
+.umb_d { position:absolute; bottom:15%; width:100%;}
+.umb_tit { text-align:center; font-size:2em; height:2em; line-height:2em; color:#ee7218; font-weight:600;}
+.umb_syn { text-align:center; padding-left:2em; padding-right:2em; padding-bottom:1em;}
+#mcover { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.7); display:none; z-index:20000;}
+#mcover img { position:fixed; right:0; top:5px; width:260px; height:180px; z-index:999;}
+</style>
+</head>
+<body>
+<div class="container padding0">
+<div class="umb">
+<div class="umb_pic"><img src="{$CssDir/}images/umb.png" alt="{$SiteName/}" /></div>
+<div class="umb_d">
+<div class="umb_tit">借伞成功</div>
+<div class="umb_syn">恭喜您成功在氿度伞借伞成功，推荐好友借伞将获得平台奖励的现金红包，赶快分享吧！</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="/BU/UE/MyLend.aspx" class="btn btn-block" style="background:#ee7218; color:#fff; height:3em; line-height:2em;">我的雨伞</a></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href="javascript:;" onClick="document.getElementById('mcover').style.display='block';" class="btn btn-block" style="background:#ee7218; color:#fff; height:3em; line-height:2em;">立即分享</a></div>
+</div>
+</div>
+</div>
+
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display: none;"><img src="{$CssDir/}images/share.png" /></div>
+</body>
+</html>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/JS/Modal/APIResult.js"></script>   
+<script>
+$.post("/BU/Client.ashx?action=isfollow").then((data) => {
+    var model = APIResult.getModel(data);
+    if (!APIResult.isok(model)) {
+        //未关注公众账号则跳转前去关注公众账号
+        location = "/Class_1/NodePage.aspx";
+    }
+})
+wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    {ZL:WXJSSign(1)/},
+    jsApiList: ["onMenuShareAppMessage","onMenuShareTimeline"], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+wx.ready(function () {
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    wx.onMenuShareAppMessage({
+        title: '我是在氿度伞借伞成功', // 分享标题
+        desc: '我已经成功在氿度伞借伞成功，快去体验吧', // 分享描述
+        link: '{$SiteURL/}/wxpromo.aspx?userid={ZL:GetuserID()/}', // 分享链接
+        imgUrl: '{$SiteURL/}{$CssDir/}/images/logo.jpg', // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+            // 用户取消分享后执行的回调函数
+        }
+    });
+    wx.onMenuShareTimeline({
+        title: '我是在氿度伞借伞成功', // 分享标题
+        desc: '我已经成功在氿度伞借伞成功，快去体验吧', // 分享描述
+        link: '{$SiteURL/}/wxpromo.aspx?userid={ZL:GetuserID()/}', // 分享链接
+        imgUrl: '{$SiteURL/}{$CssDir/}/images/logo.jpg', // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+            // 用户取消分享后执行的回调函数
+        }
+    });
+});
+</script>

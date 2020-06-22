@@ -1,0 +1,275 @@
+﻿{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>马上借伞_{$SiteName/}</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BGDnQmbqyuguGgk2H948rEfd5QIjlqHd"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/JS/Plugs/angular.min.js"></script>
+<script src="/Plat/Note/tm.pagination.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<script src="/js/scrolltopcontrol.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/dist/css/weui.min.css" />
+<style>
+.wei-footer { position:fixed;}
+.page-list { text-align:center;}
+.page-total { display:none;}
+</style>
+</head> 
+<body>
+<div id="allmap" class="hidden"></div>
+<div class="home_nav hidden-xs" id="home_nav">
+<div class="container">
+<nav class="navbar navbar-default">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="/"><img src="{$LogoUrl/}" alt="{$SiteName/}"></a>
+<a style="color:#333; display:inline-block; text-decoration:none; font-size:1.6em; font-family:'ZoomlaXingtiJ3'; margin-top:0.8em;" href="{ZL:GetNodeLinkUrl(3)/}">地图借伞</a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav navbar-right home_top_nav">
+<li class="active"><a href="/">首页</a></li>
+<li id="gid6"><a href="{ZL:GetInfoUrl(6)/}">关于氿度伞</a></li>
+<li id="ni3"><a href="{ZL:GetNodeLinkUrl(6)/}">新闻动态</a></li>
+<li id="ni4"><a href="{ZL:GetNodeLinkUrl(7)/}">活动&通知</a></li>
+<li id="gid5"><a href="{ZL:GetInfoUrl(5)/}">联系我们</a></li>
+<li class="hidden-xs"><a href="javascript:;" onClick="isSearch();"><i class="fa fa-search"></i></a></li>
+
+<li class="dropdown">
+<a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+Menu
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(4)/}">圈子</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(3)/}">地图借伞</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="{ZL:GetNodeLinkUrl(19)/}">文字借伞列表</a></li>
+</ul>
+</li>
+
+</ul>
+<ul class="nav navbar-nav navbar-right home_search hidden-xs">
+<form class="navbar-form navbar-left" role="search" action="/Search/SearchList" target="_blank">
+<i class="fa fa-search"></i>
+<input type="text" class="form-control" placeholder="输入关键字，回车查询" name="keyword" />
+<a onClick="isClose();"><i class="fa fa-close" style="color:#ccc;"></i></a>
+</form>
+</ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+</div>
+</div>
+<!-- home_nav end! -->
+<div class="quan_banner hidden-xs"></div>
+
+<div ng-app="app" ng-controller="appCtrl">
+<div ng-repeat="item in list track by $index">
+<div class="map_text">
+<div class="container">
+<div class="map_text_list">
+<div class="media">
+<div class="media-left media-middle">
+<a href="/Store/StoreIndex?id={{item.GeneralID}}">
+<img  ng-src="{{'/UploadFiles/'+item.logo}}" alt="{{item.title}}" onerror="javascript:this.src='/UploadFiles/nopic.gif'" />
+</a>
+</div>
+<div class="media-body">
+<h4 class="media-heading"><a href="/Store/StoreIndex?id={{item.GeneralID}}" ng-bind="item.Title"></a></h4>
+<p><a href="javascript:;" onClick="ShowMap({{item.lng}},{{item.lat}},'{{item.Title}}','{{item.addr}}',{{item.GeneralID}});">店铺地址:{{item.addr}}</a></p>
+<p><i class="fa fa-map-marker" aria-hidden="true"></i> <span id="mi{{item.GeneralID}}"></span> {{item.distance}}公里</p>
+<a href="/Store/StoreIndex?id={{item.GeneralID}}">马上借伞</a>
+<a href="javascript:;"  onClick="qrcode();">马上还伞</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<tm-pagination conf="pageConf"></tm-pagination>
+</div>
+
+<div class="hidden-xs">{ZL.Label id="全站底部"/}</div>
+<div class="visible-xs">{ZL.Label id="微信底部"/}</div>
+</body>
+</html>
+<!--微信调试-->
+<!--<script src="/JS/Mobile/vconsole.min.js"></script>-->
+<script>
+//检测固顶事件
+var IO=document.getElementById('home_nav'),Y=IO,H=0,IE6;
+IE6=window.ActiveXObject&&!window.XMLHttpRequest;
+while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+if(IE6)
+    IO.style.cssText="position:absolute;top:expression(this.fix?(document"+
+        ".documentElement.scrollTop-(this.javascript||"+H+")):0)";
+window.onscroll=function (){
+    var d=document,s=Math.max(d.documentElement.scrollTop,document.body.scrollTop);
+     if(s>H&&IO.fix||s<=H&&!IO.fix)return;
+    if(!IE6)IO.style.position=IO.fix?"":"fixed";        
+    IO.fix=!IO.fix;
+    
+};
+try{document.execCommand("BackgroundImageCache",false,true)}catch(e){};
+
+//手机下右侧导航菜单效果
+$(function () {
+    $('button.navbar-toggle').click(function () {
+        $('body').toggleClass('out');
+        $('nav.navbar-fixed-top').toggleClass('out');
+        if ($('body').hasClass('out')) {
+            $(this).focus();
+        }
+        else {
+            $(this).blur();
+        }
+    });
+});
+$(document).click(function (e) {
+    if (!$(e.target).closest('.navbar-collapse, button.navbar-toggle').length && $('body').hasClass('out')) {
+        e.preventDefault();
+        $('button.navbar-toggle').trigger('click');
+    }
+}).keyup(function (e) {
+    if (e.keyCode == 27 && $('body').hasClass('out')) {
+        $('button.navbar-toggle').trigger('click');
+    }
+});
+
+
+$(window).scroll(function(){
+	if($(window).scrollTop()>0){
+		$(".home_nav").addClass("active")
+        $(".home_nav li a").css("color","#333");
+        $(".home_nav .home_search form>i").css("color","#ccc");
+        $(".home_search .fa fa-close").css("color","#ccc");
+	}
+	else{
+		$(".home_nav").removeClass("active");
+        $(".home_nav li a").css("color","#fff");
+        $(".home_nav .home_search form>i").css("color","#fff");
+        $(".home_search .fa fa-close").css("color","#fff");
+	}
+});
+
+/*显示搜索框*/
+function isSearch(){
+    $(".home_search").css("opacity","1").css("z-index","1").css("right","0");
+    $(".home_top_nav").fadeOut(200);
+    $(".home_search .form-control").focus();
+}
+/*关闭搜索框*/
+function isClose(){
+    $(".home_search").css("opacity","0").css("z-index","-1").css("right","-1em");
+    $(".home_top_nav").fadeIn(1000);
+}
+
+wx.config({
+	debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	{ZL:WXJSSign(1)/},
+	jsApiList: ["getLocation","openLocation","checkJsApi","scanQRCode"], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+wx.ready(function () {
+/*
+ wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+            }
+        });
+
+*/
+
+});
+	
+function ShowMap(lng,lat,Title,addr,GeneralID){
+    //转换百度坐标为腾讯坐标
+	var str="";
+    qq.maps.convertor.translate(new qq.maps.LatLng(lat,lng), 3, function(res){
+		str=res.toString();
+		wx.openLocation({
+			latitude: parseFloat(str.split(",")[0]), // 纬度，浮点数，范围为90 ~ -90
+			longitude: parseFloat(str.split(",")[1]), // 经度，浮点数，范围为180 ~ -180。
+			name: Title, // 位置名
+			address: addr, // 地址详情说明
+			scale: 28, // 地图缩放级别,整形值,范围从1~28。默认为最大
+			infoUrl: '{$SiteURL/}/Store/StoreIndex?id='+GeneralID // 在查看位置界面底部显示的超链接,可点击跳转
+		});
+    });
+}
+$("#foot_jie").addClass("weui-bar__item_on");
+
+/*扫描二维码*/
+function qrcode() {
+    wx.scanQRCode({
+        needResult: 1,
+        scanType: ["qrCode"],
+        success: function (res) {
+            window.location.href=res.resultStr;
+        }
+    })
+}
+
+
+/*获取商户列表，计算距离并排序*/
+var scope=null;
+var map = new BMap.Map("allmap");
+var geolocation = new BMap.Geolocation();
+angular.module("app", ['tm.pagination']).controller("appCtrl", function ($scope) {
+    //初始化分页
+	scope=$scope;
+    $scope.list = [];
+    {ZL.Label id="输出店铺列表" ShowNum="1000" /}
+    $scope.pageConf = {
+        currentPage: 1,
+        totalItems: list.length,
+        itemsPerPage: 100,
+        pagesLength: 10,
+        perPageOptions: [10, 20, 30, 40, 50,100],
+        rememberPerPage: 'perPageItems',
+        onChange: function () {
+            $scope.list = $scope.getList($scope.pageConf.currentPage,$scope.pageConf.itemsPerPage,list);
+        }
+    };
+    //--------------
+    $scope.getList = function (cpage, psize, array) {
+        var offset = (cpage - 1) * psize;
+        return (offset + psize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + psize);
+    }
+    geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            var pointA = new BMap.Point(r.point.lng, r.point.lat);  // 创建点坐标A
+            for (var i = 0; i < list.length; i++) {
+                list[i].lng=list[i].map.split(',')[0];
+                list[i].lat=list[i].map.split(',')[1];
+                var pointB = new BMap.Point(list[i].lng,list[i].lat);  // 创建点坐标B
+                list[i].distance = (map.getDistance(pointA, pointB) / 1000).toFixed(2);
+            }
+            list.sort(function (a, b) {
+                return a.distance - b.distance;
+            });
+            
+            $scope.list = $scope.getList(1, 100, list);
+            $scope.$digest();
+        }
+
+    }, { enableHighAccuracy: true });
+
+});
+</script>

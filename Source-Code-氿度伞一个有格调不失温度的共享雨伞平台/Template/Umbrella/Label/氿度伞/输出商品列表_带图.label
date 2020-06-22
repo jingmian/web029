@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>331</LabelID>
+    <LabelName>输出商品列表_带图</LabelName>
+    <LabelType>2</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>NodeID,0,1,节点ID|UserShopID,0,1,店铺ID</LabelParam>
+    <LabelTable>ZL_Commodities</LabelTable>
+    <LabelField>Thumbnails,Nodeid,Proname,Stock,UserShopID</LabelField>
+    <LabelWhere>NodeID=@NodeID And UserShopID='@UserShopID' And Sales=1 And istrue=1 And Recycler=0</LabelWhere>
+    <LabelOrder />
+    <LabelContent>{Repeate}
+&lt;div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 padding0_xs"&gt;
+&lt;div class="thumbnail"&gt;
+&lt;a href=""&gt;&lt;img src="{ZL:GetPicUrl({Field="Thumbnails"/})/}" alt="{Field="Proname"/}"   onerror="javascript:this.src='/UploadFiles/nopic.gif'"/&gt;&lt;/a&gt;
+&lt;div class="caption"&gt;
+&lt;p&gt;&lt;a href="javascript:;" class="btn" role="button" onclick="ueclient.lend();" style="background:#ee7218; color:#fff;"&gt;&lt;i class="fa fa-plus-circle" aria-hidden="true"&gt;&lt;/i&gt; 马上借伞&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="javascript:;" onClick="qrcode();" class="btn btn-default" role="button"&gt;&lt;i class="fa fa-minus-circle" aria-hidden="true"&gt;&lt;/i&gt; 用完还伞&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+{/Repeate}</LabelContent>
+    <LabelCount />
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_Commodities","tb_s":""}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

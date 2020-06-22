@@ -1,0 +1,167 @@
+﻿{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$SiteName/}</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=BGDnQmbqyuguGgk2H948rEfd5QIjlqHd"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;hidden;margin:0;}
+</style>
+</head> 
+<body>
+<div class="home_nav hidden-xs" id="home_nav">
+<div class="container">
+<nav class="navbar navbar-default">
+<div class="container">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="/"><img src="{$LogoUrl/}" alt="{$SiteName/}"></a>
+<a style="color:#333; display:inline-block; text-decoration:none; font-size:1.6em; font-family:'ZoomlaXingtiJ3'; margin-top:0.8em;" href="{ZL:GetNodeLinkUrl(19)/}">列表借伞</a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<ul class="nav navbar-nav navbar-right home_top_nav">
+<li class="active"><a href="/">首页</a></li>
+<li id="gid6"><a href="{ZL:GetInfoUrl(6)/}">关于氿度伞</a></li>
+<li id="ni3"><a href="{ZL:GetNodeLinkUrl(6)/}">新闻动态</a></li>
+<li id="ni4"><a href="{ZL:GetNodeLinkUrl(7)/}">活动&通知</a></li>
+<li id="gid5"><a href="{ZL:GetInfoUrl(5)/}">联系我们</a></li>
+<li class="hidden-xs"><a href="javascript:;" onClick="isSearch();"><i class="fa fa-search"></i></a></li>
+</ul>
+<ul class="nav navbar-nav navbar-right home_search hidden-xs">
+<form class="navbar-form navbar-left" role="search" action="/Search/SearchList" target="_blank">
+<i class="fa fa-search"></i>
+<input type="text" class="form-control" placeholder="输入关键字，回车查询" name="keyword" />
+<a onClick="isClose();"><i class="fa fa-close" style="color:#ccc;"></i></a>
+</form>
+</ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+</div>
+</div>
+<!-- home_nav end! -->
+
+<div class="quan_banner hidden-xs">
+<h1>{SField sid="节点栏目信息数据源" FD="NodeName" page="0"/}</h1>
+</div>
+<div id="allmap"></div>
+
+<div class="map_btn"><a href="{ZL:GetNodeLinkUrl(19)/}">立即用伞</a></div>
+
+{ZL.Label id="微信底部"/}
+
+</body>
+</html>
+<!--<script src="/JS/Mobile/vconsole.min.js"></script>-->
+<script>
+wx.config({
+	debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	{ZL:WXJSSign(1)/},
+	jsApiList: ["getLocation","openLocation"], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+wx.ready(function () {
+	// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+});
+
+//手机下右侧导航菜单效果
+$(function () {
+    $('button.navbar-toggle').click(function () {
+        $('body').toggleClass('out');
+        $('nav.navbar-fixed-top').toggleClass('out');
+        if ($('body').hasClass('out')) {
+            $(this).focus();
+        }
+        else {
+            $(this).blur();
+        }
+    });
+});
+$(document).click(function (e) {
+    if (!$(e.target).closest('.navbar-collapse, button.navbar-toggle').length && $('body').hasClass('out')) {
+        e.preventDefault();
+        $('button.navbar-toggle').trigger('click');
+    }
+}).keyup(function (e) {
+    if (e.keyCode == 27 && $('body').hasClass('out')) {
+        $('button.navbar-toggle').trigger('click');
+    }
+});
+
+/*显示搜索框*/
+function isSearch(){
+    $(".home_search").css("opacity","1").css("z-index","1").css("right","0");
+    $(".home_top_nav").fadeOut(200);
+    $(".home_search .form-control").focus();
+}
+/*关闭搜索框*/
+function isClose(){
+    $(".home_search").css("opacity","0").css("z-index","-1").css("right","-1em");
+    $(".home_top_nav").fadeIn(1000);
+}
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+var point = new BMap.Point(116.331398,39.897445);
+map.centerAndZoom(point,15);
+var geolocation = new BMap.Geolocation();
+console.log(geolocation);
+geolocation.getCurrentPosition(function(r){	
+    
+	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+        var mk = new BMap.Marker(r.point);
+        map.addOverlay(mk);
+        map.panTo(r.point);
+        var new_point = new BMap.Point(r.point.lng,r.point.lat);
+        map.centerAndZoom(new_point,15);
+    }
+    else {
+        alert('failed'+this.getStatus());
+    }
+},{enableHighAccuracy: true})
+
+{ZL.Label id="首页输出商家位置"/}
+
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+//map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+
+map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用	
+
+function gomap(a,b){
+    window.location.href="http://uri.amap.com/marker?position="+a+","+b;
+}
+
+function ShowMap(lng,lat,Title,addr,GeneralID){
+    //转换百度坐标为腾讯坐标
+	var str="";
+    qq.maps.convertor.translate(new qq.maps.LatLng(lat,lng), 3, function(res){
+		str=res.toString();
+		wx.openLocation({
+			latitude: parseFloat(str.split(",")[0]), // 纬度，浮点数，范围为90 ~ -90
+			longitude: parseFloat(str.split(",")[1]), // 经度，浮点数，范围为180 ~ -180。
+			name: Title, // 位置名
+			address: addr, // 地址详情说明
+			scale: 28, // 地图缩放级别,整形值,范围从1~28。默认为最大
+			infoUrl: '{$SiteURL/}/Store/StoreIndex?id='+GeneralID // 在查看位置界面底部显示的超链接,可点击跳转
+		});
+    });
+}
+</script>
+

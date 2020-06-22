@@ -1,0 +1,66 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>317</LabelID>
+    <LabelName>全站头部</LabelName>
+    <LabelType>1</LabelType>
+    <LabelCate>静态标签</LabelCate>
+    <LabelDesc />
+    <LabelParam />
+    <LabelTable />
+    <LabelField />
+    <LabelWhere />
+    <LabelOrder />
+    <LabelContent>&lt;div class="home_nav hidden-xs" id="home_nav"&gt;
+&lt;div class="container"&gt;
+&lt;nav class="navbar navbar-default"&gt;
+&lt;div class="container"&gt;
+&lt;!-- Brand and toggle get grouped for better mobile display --&gt;
+&lt;div class="navbar-header"&gt;
+&lt;button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"&gt;
+&lt;span class="sr-only"&gt;Toggle navigation&lt;/span&gt;
+&lt;span class="icon-bar"&gt;&lt;/span&gt;
+&lt;span class="icon-bar"&gt;&lt;/span&gt;
+&lt;span class="icon-bar"&gt;&lt;/span&gt;
+&lt;/button&gt;
+&lt;a class="navbar-brand" href="/"&gt;&lt;img src="{$LogoUrl/}" alt="{$SiteName/}"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;!-- Collect the nav links, forms, and other content for toggling --&gt;
+&lt;div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"&gt;
+&lt;ul class="nav navbar-nav navbar-right home_top_nav"&gt;
+&lt;li &gt;&lt;a href="/"&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li id="gid6"&gt;&lt;a href="{ZL:GetInfoUrl(6)/}"&gt;关于氿度伞&lt;/a&gt;&lt;/li&gt;
+&lt;li id="ni3"&gt;&lt;a href="{ZL:GetNodeLinkUrl(6)/}"&gt;新闻动态&lt;/a&gt;&lt;/li&gt;
+&lt;li id="ni4"&gt;&lt;a href="{ZL:GetNodeLinkUrl(7)/}"&gt;活动&amp;通知&lt;/a&gt;&lt;/li&gt;
+&lt;li id="gid5"&gt;&lt;a href="{ZL:GetInfoUrl(5)/}"&gt;联系我们&lt;/a&gt;&lt;/li&gt;
+&lt;li class="hidden-xs"&gt;&lt;a href="javascript:;" onClick="isSearch();"&gt;&lt;i class="fa fa-search"&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class="nav navbar-nav navbar-right home_search hidden-xs"&gt;
+&lt;form class="navbar-form navbar-left" role="search" action="/Search/SearchList" target="_blank"&gt;
+&lt;i class="fa fa-search"&gt;&lt;/i&gt;
+&lt;input type="text" class="form-control" placeholder="输入关键字，回车查询" name="keyword" /&gt;
+&lt;a onClick="isClose();"&gt;&lt;i class="fa fa-close" style="color:#ccc;"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;/form&gt;
+&lt;/ul&gt;
+&lt;/div&gt;&lt;!-- /.navbar-collapse --&gt;
+&lt;/div&gt;&lt;!-- /.container-fluid --&gt;
+&lt;/nav&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- home_nav end! --&gt;</LabelContent>
+    <LabelCount />
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType />
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

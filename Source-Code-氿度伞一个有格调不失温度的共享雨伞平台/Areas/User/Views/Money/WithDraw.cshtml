@@ -1,0 +1,140 @@
+﻿@using System.Data
+@using ZoomLa.Model
+@{
+    M_UserInfo mu = ViewBag.mu;
+    DataTable banks = (DataTable)ViewBag.banks;
+}
+@functions{
+    public string GetLastStr(string str, int num)
+    {
+        int count = 0;
+        if (str.Length > num)
+        {
+            count = str.Length - num;
+            str = str.Substring(count, num);
+        }
+        return str;
+    }
+}
+@section head{
+    <title>提现申请</title>
+    <style>
+        .weui-cell__bd p { margin-bottom: 0; }
+    </style>
+}
+@section content{
+    <div id="pageflag" data-nav="shop" data-ban="UserInfo"></div>
+    <div class="container margin_t10 padding0_xs hidden-xs">
+        <ol class="breadcrumb">
+            <li><a title="会员中心" href="@Url.Action("Default","")">会员中心</a></li>
+            <li><a title="账户管理" href="@Url.Action("Userinfo","info")">账户管理</a></li>
+            <li><a title="提现管理" href="@Url.Action("WithDrawLog","Money")">提现管理</a></li>
+            <li class="active">申请提现 <a href="@Url.Action("UserBank","Money")">[银行账号管理]</a></li>
+        </ol>
+    </div>
+    <div class="container padding0_xs">
+        <form method="post" action="WithDraw_Add">
+            <div class="weui-panel weui-panel_access">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd"><p>现有金额：</p></div>
+                    <div class="weui-cell__ft">@mu.Purse.ToString("f2")</div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">提现金额：</label></div>
+                    <div class="weui-cell__bd"><input type="text" ID="Money_T" name="Money_T" class="weui-input drawpri required number" placeholder="请输入金额" /></div>
+                </div>
+                @if (banks != null && banks.Rows.Count > 0)
+                {
+                    <tr>
+                        <td>银行账户：</td>
+                        <td>
+                            @foreach (DataRow dr in banks.Rows)
+                            {
+                                <label class="bank_lbl">
+                                    <input type="radio" class="bankrad" onclick="setrad(this);" name="bankid" value="@dr["ID"]" data-pname="@dr["PeopleName"]" data-bname="@dr["BankName"]" data-remark="@dr["remark"]" data-bnum="@dr["CardNum"]" />
+                                    <span class="pname">@dr["PeopleName"]</span>&nbsp;@dr["BankName"]（尾号：<span class="bnum">@GetLastStr(dr["CardNum"].ToString(), 4)</span>）
+                                </label>
+                            }
+                        </td>
+                    </tr>
+                }
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">开户人：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input required " type="text" value="" name="PName_T">
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">银行名称：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input required " type="text" value="" name="Bank_T">
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">开户银行：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" value="" name="Remark_T">
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">银行卡号：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" pattern="[0-9]*" name="Account_T" value="weui input error" placeholder="请输入卡号">
+                    </div>
+                </div>
+                @*<div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">二级密码：</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="password" />
+                    </div>
+                </div>*@
+            </div>
+            <div class="weui-btn-area">
+                @*@if (string.IsNullOrEmpty(mu.PayPassWord))
+                {
+                    <div class="alert alert-warning">你尚未设置二级密码,无法完成提现申请 <a href="/User/UserFunc/SetSecondPwd" class="btn  marginl5" style="background:#ee7218;color:#fff;">前往设置</a></div>
+                }
+                else
+                {
+                   
+                }*@
+                 <input type="submit" class="weui-btn weui-btn_primary btn-block" value="申请提现" style="background:#ee7218; color:#fff;" />
+            </div>
+        </form>
+    </div>
+}
+@section script{
+    <style>
+        .bank_lbl { font-weight: normal; margin: 5px 0; vertical-align: middle; }
+        .bank_lbl input { margin: 0 5px; vertical-align: middle; }
+        .bank_lbl .pname, .bnum { font-weight: bolder; }
+    </style>
+    <script src="/JS/ZL_Regex.js"></script>
+    <script src="/JS/Controls/ZL_Dialog.js"></script>
+    <script>
+        $(function () {
+            $.validator.addMethod("drawpri", function (value, element) {
+                if (ZL_Regex.isEmpty(value)) { return true; }
+                var price = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
+                return this.optional(element) || (price.test(value));
+            }, "提现金额必须大于零，最多保留两位小数!");
+            $.validator.addMethod("account", function (value, element) {
+                if (ZL_Regex.isEmpty(value)) { return true; }
+                var account = /^(\d{16}|\d{19})$/;
+                return this.optional(element) || (account.test(value));
+            }, "请输入16或19位银行卡号");
+            $("#shortPwd_t").addClass("required");
+            $("form").validate();
+            if ($(".bankrad").length > 0) { $(".bankrad").get(0).click(); }
+        })
+
+        function setrad(rad) {
+            var $rad = $(rad);
+            $("#PName_T").val($rad.data("pname"));
+            $("#Bank_T").val($rad.data("bname"));
+            $("#Remark_T").val($rad.data("remark"));
+            $("#Account_T").val($rad.data("bnum"));
+        }
+    </script>
+}

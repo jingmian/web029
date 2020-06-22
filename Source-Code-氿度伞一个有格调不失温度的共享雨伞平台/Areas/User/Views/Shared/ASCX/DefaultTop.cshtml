@@ -1,0 +1,33 @@
+﻿@using ZoomLa.BLL
+@using ZoomLa.Model
+@using ZoomLa.Common
+@functions{
+    string usernavBan = ZoomLa.Components.SiteConfig.UserConfig.UserNavBan;
+    public bool IsShowNav(string nav)
+    {
+        if (string.IsNullOrEmpty(usernavBan)) { return true; }
+        else { return !usernavBan.Contains(nav); }
+    }
+ }
+@{
+    M_UserInfo mu = new B_User().GetLogin();
+    M_Group groupMod = new M_Group();
+	B_Group groupBll = new B_Group();
+	groupMod = groupBll.SelReturnModel(mu.GroupID);
+	string truename = mu.UserName;
+    if (!string.IsNullOrEmpty(mu.TrueName))
+    {
+        truename = mu.TrueName;
+    }
+}
+<div class="container padding0">
+<div class="user_top">
+<div class="user_top_t"><a href="/User/Info/Index"><img src="@mu.UserFace" alt="@mu.UserName" onerror="shownoface(this);" /></a></div>
+<div class="user_top_p">
+会员名称：@truename<br/>
+会员组：@groupMod.GroupName<br/>
+押金：<a href="/user/Info/ConsumeDetail?SType=2" title="点击查看资金明细">@mu.SilverCoin.ToString("f2") <button class="btn btn-default btn-sm" type="">资金明细</button></a>
+余额：<a href="/user/Info/ConsumeDetail?SType=1">@mu.Purse.ToString("f2")</a>
+</div>
+</div>
+</div>

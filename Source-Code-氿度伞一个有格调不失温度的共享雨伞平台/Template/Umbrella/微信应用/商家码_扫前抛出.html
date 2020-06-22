@@ -1,0 +1,33 @@
+{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>扫码借伞_{$SiteName/}</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<link rel="stylesheet" href="/dist/css/swiper.min.css" />
+<script src="/dist/js/swiper.min.js"></script>
+<style>
+.wei-footer { position:fixed; bottom:0;}
+.my_jies { padding-left:2em; padding-right:2em; padding-top:10em; text-align:center;}
+.my_jies img { width:70%;}
+.my_jies a { margin-top:5em;}
+</style>
+</head>
+<body>
+<div class="my_jies">
+
+<img src={ZL:GetQCUrl(http://x042.2013.hx008.com/wxpromo.aspx?r=/Class_4/NodeNews.aspx?uid={$GetRequest(uid)$},200)/} alt='' />
+
+<a href="/Class_4/NodePage.aspx" class="weui-btn" style="background:#ee7218; color:#fff;"><i class="fa fa-angle-left" aria-hidden="true"></i> 返回</a>
+</div>
+
+{ZL.Label id="微信底部"/}
+</body>
+</html>
+<script>
+$("#foot_user").addClass("weui-bar__item_on");
+</script>

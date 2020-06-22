@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>341</LabelID>
+    <LabelName>输出会员返利流水_分页</LabelName>
+    <LabelType>4</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>ShowNum,20,1,显示数</LabelParam>
+    <LabelTable>ZL_UserExpDomP</LabelTable>
+    <LabelField>Detail,HisTime,Remark,score,UserID</LabelField>
+    <LabelWhere>Detail like '%奖励%' And ScoreType=1</LabelWhere>
+    <LabelOrder>ZL_UserExpDomP.HisTime DESC</LabelOrder>
+    <LabelContent>&lt;table class="table table-bordered"&gt;
+&lt;tr&gt;
+&lt;th&gt;用户名&lt;/th&gt;
+&lt;th&gt;用户ID&lt;/th&gt;
+&lt;th&gt;返利金额&lt;/th&gt;
+&lt;th&gt;返利明细&lt;/th&gt;
+&lt;th&gt;返利时间&lt;/th&gt;
+&lt;/tr&gt;
+{Repeate}
+&lt;tr&gt;
+&lt;td&gt;
+&lt;a href="/Admin/User/UserInfo.aspx?id={Field="UserID"/}"&gt;{ZL.Label id="获取指定用户真实姓名" UserID="{Field="UserID"/}" /}&lt;/a&gt;
+&lt;a href="/Class_39/NodeHot.aspx?UserID={Field="UserID"/}"&gt;[会员返利]&lt;/a&gt;
+&lt;/td&gt;
+&lt;td&gt;{Field="UserID"/}&lt;/td&gt;
+&lt;td&gt;{ZL:GetMoney({Field="score"/},2,1)/}&lt;/td&gt;
+&lt;td&gt;{Field="Detail"/}&lt;/td&gt;
+&lt;td&gt;{ZL:FormatDate({Field="HisTime"/},yyyy-MM-dd HH:mm:ss)/}&lt;/td&gt;
+&lt;/tr&gt;
+{/Repeate}
+&lt;tr&gt;
+&lt;td colspan="5"&gt;{ZL.Page id="响应式列表分页v3"/}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</LabelContent>
+    <LabelCount>@ShowNum</LabelCount>
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_UserExpDomP","tb_s":""}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>324</LabelID>
+    <LabelName>伞点地图坐标_不分页</LabelName>
+    <LabelType>2</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>ShowNum,40,1,显示数|NodeID,0,1,节点ID</LabelParam>
+    <LabelTable>ZL_CommonModel LEFT JOIN ZL_C_dian ON ZL_CommonModel.ItemID=ZL_C_dian.ID</LabelTable>
+    <LabelField>ZL_CommonModel.title,ZL_CommonModel.GeneralID,ZL_CommonModel.NodeID,ZL_C_dian.maps,ZL_C_dian.synopsis,slx,szdq,ZL_C_dian.content,ZL_C_dian.tjjb,ZL_C_dian.addres</LabelField>
+    <LabelWhere>(NodeID=@NodeID or FirstNodeID=@NodeID) and Status=99</LabelWhere>
+    <LabelOrder />
+    <LabelContent>{Repeate}
+
+var pt = new BMap.Point({Field="maps"/});//创建个性图标开始
+
+var myIcon = new BMap.Icon("{$CssDir/}images/ico.png", new BMap.Size(45,30));
+
+var marker{Field="GeneralID"/}= new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+
+map.addOverlay(marker{Field="GeneralID"/});              // 将标注添加到地图中
+
+var infoWindow{Field="GeneralID"/} = new BMap.InfoWindow("&lt;p&gt;&lt;a  href='{ZL:GetInfoUrl({Field="GeneralID"/})/}'  style='font-size:14px; color:red;'&gt;{Field="title"/}&lt;/a&gt;[{Field="szdq"/}]{Field="tjjb"/}&lt;br/&gt;&lt;a style='text-decoration:none;color:#333; margin-top:0'&gt;地址：{Field="addres"/}&lt;/a&gt;&lt;div style='color:#666;'&gt;伞类型:    {Field="slx"/}&lt;/div&gt;&lt;a  href='{ZL:GetInfoUrl({Field="GeneralID"/})/}'&gt;马上借伞&lt;/a&gt;&lt;/p&gt;");
+
+marker{Field="GeneralID"/}.addEventListener("click", function(){this.openInfoWindow(infoWindow{Field="GeneralID"/});});
+
+{/Repeate}</LabelContent>
+    <LabelCount>@ShowNum</LabelCount>
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_CommonModel","tb_s":"ZL_C_dian"}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

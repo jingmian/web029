@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Table>
+    <LabelID>345</LabelID>
+    <LabelName>输出当前用户借还记录</LabelName>
+    <LabelType>2</LabelType>
+    <LabelCate>氿度伞</LabelCate>
+    <LabelDesc />
+    <LabelParam>ShowNum,20,1,显示数</LabelParam>
+    <LabelTable>ZL_Ex_OrderView</LabelTable>
+    <LabelField>ID,OrderNo,AddUser,AddTime,Userid,OrderStatus,Promoter,Settle,UserName,StoreName,RStoreName,Balance_remark</LabelField>
+    <LabelWhere>Userid={ZL:GetuserID()/} And Ordertype=10</LabelWhere>
+    <LabelOrder />
+    <LabelContent>{Repeate}
+&lt;div class="order-item"&gt;
+&lt;div class="tips_div"&gt;
+&lt;div&gt;&lt;span class="gray9"&gt;ID：{Field="ID"/} | 伞号：{Field="Balance_remark"/} | 状态：
+&lt;script&gt;
+var status={Field="OrderStatus"/};
+switch (status)
+{
+case "0":
+  document.write("&lt;span style='color:green;'&gt;出借中&lt;span&gt;");
+  break;
+case "-1":
+  document.write("&lt;span style='color:red;'&gt;还伞中|待伞点确认...&lt;/span&gt;");
+  break;
+case "99":
+  document.write("&lt;span style='color:blue;'&gt;已完结&lt;/span&gt;");
+  break;
+default:
+  document.write(status);
+  break;
+}
+&lt;/script&gt;
+&lt;/span&gt;&lt;/div&gt;
+&lt;div class="orderinfo"&gt;&lt;span class="gray9"&gt;借伞人：{ZL.Label id="获取指定用户真实姓名" UserID="{Field="Userid"/}" /}&lt;/span&gt;&lt;/div&gt;
+&lt;div class="orderinfo"&gt;&lt;span class="gray9"&gt;借出点：{Field="StoreName"/}&lt;/span&gt;&lt;/div&gt;
+&lt;div  class="orderinfo"&gt;&lt;span class="gray9"&gt;归还点：{Field="RStoreName"/}&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+{/Repeate}</LabelContent>
+    <LabelCount>@ShowNum</LabelCount>
+    <LabelAddUser>0</LabelAddUser>
+    <LabelNodeID>0</LabelNodeID>
+    <Modeltypeinfo>计数判断</Modeltypeinfo>
+    <addroot>循环计算</addroot>
+    <setroot>等于</setroot>
+    <Modelvalue />
+    <Valueroot />
+    <IsOpen>0</IsOpen>
+    <FalseContent />
+    <DataSourceType>{"ds_m":"main","ds_s":"main","tb_m":"ZL_Ex_OrderView","tb_s":""}</DataSourceType>
+    <ConnectString />
+    <ProceName />
+    <ProceParam />
+  </Table>
+</NewDataSet>

@@ -1,0 +1,47 @@
+{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{SField sid="节点栏目信息数据源" FD="NodeName" page="0"/}_{$SiteName/}</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<link rel="stylesheet" href="/dist/css/swiper.min.css" />
+<script src="/dist/js/swiper.min.js"></script>
+<style>
+.wei-footer { position:fixed; bottom:0;}
+</style>
+</head>
+<body>
+
+<div class="gn_banner"><div class="gn_banner1"></div></div>
+
+<div class="container">
+<div class="row">
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/bu/ue/store/returnlist.aspx">还伞列表</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/Class_2/NodePage.aspx">借还记录</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/Class_4/NodeHot.aspx?uid={ZL:GetuserID()/}">我的二维码</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/User/UserShop/">店铺资料</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/BU/UE/WithDraw.aspx">资金结算</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/Class_20/Default.aspx">商户教程</a></div></div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><div class="gn_btn"><a href="/User/iServer/AddQuestion">有问必答</a></div></div>
+</div>
+</div>
+
+{ZL.Label id="微信底部"/}
+</body>
+</html>
+<script>
+$("#foot_user").addClass("weui-bar__item_on");
+
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    slidesPerView: 1,
+    paginationClickable: true,
+    spaceBetween: 30,
+    loop: true,
+    autoplay:3500
+});
+</script>

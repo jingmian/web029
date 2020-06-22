@@ -1,0 +1,40 @@
+{ZL.Source id="节点栏目信息数据源"/}<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>扫码借伞_{$SiteName/}</title>
+<meta name="Keywords" content="{SField sid="节点栏目信息数据源" FD="Meta_Keywords" page="0"/}" />
+<meta name="description" content="{SField sid="节点栏目信息数据源" FD="Meta_Description" page="0"/}" />
+{ZL:Boot()/}
+<link href="{$CssDir/}global.css?Version={ZL.Label id="前端样式版本号"/}" rel="stylesheet"/>
+<link rel="stylesheet" href="/dist/css/weui.min.css">
+<link rel="stylesheet" href="/dist/css/swiper.min.css" />
+<script src="/dist/js/swiper.min.js"></script>
+<style>
+.wei-footer { position:fixed; bottom:0;}
+.abody{ background:-webkit-gradient(linear, 0 0, 0 bottom, from(#ff0000), to(rgba(0, 0, 255, 0.5))); }
+.my_jie{ margin:auto; width:12em; height:12em; background:#DF3F42; color:#fff;}
+.my_jies { padding:2em;}
+.my_jies a { text-decoration:none;}
+.weui-btn_my { height:7em; line-height:7em; font-size:1.8em;}
+</style>
+</head>
+<body>
+<div class="my_jies">
+<div class="weui-cell"><div class="weui-cell__bd"><p>{ZL.Label id="获取指定用户真实姓名" UserID="{$GetRequest(uid)$}" /}的{ZL.Label id="输出指定会员店铺名称" UserID="{$GetRequest(uid)$}" /}</p></div></div>
+
+<a href="{ZL.Label id="输出指定会员店铺链接" UserID="{$GetRequest(uid)$}" /}" class="weui-btn  weui-btn_my" style="background:#ee7218;"><i class="fa fa-umbrella" aria-hidden="true"></i> 我要借伞</a>
+
+<a href="/BU/UE/MyLend.aspx?StoreID={ZL.Label id="输出指定会员店铺ID" UserID="{$GetRequest(uid)$}" /}" class="weui-btn weui-btn_disabled weui-btn_my" style="background:#ee7218;"><i class="fa fa-umbrella  fa-rotate-90" aria-hidden="true"></i> 我要还伞</a>
+
+<a href="/User" class="weui-btn weui-btn_plain-default"><i class="fa fa-angle-left" aria-hidden="true"></i> 返回</a>
+</div>
+{ZL.Label id="微信底部"/}
+</body>
+</html>
+<script>
+$("#foot_user").addClass("weui-bar__item_on");
+if("{ZL.Label id="获取当前用户关注状态" /}"=="" || "{ZL.Label id="获取当前用户关注状态" /}"==null){
+    window.location.href="/Class_1/NodePage.aspx";
+}
+</script>

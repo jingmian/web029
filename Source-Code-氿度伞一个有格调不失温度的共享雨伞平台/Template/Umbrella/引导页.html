@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{$SiteName/}_首页</title>
+</head>
+<body>
+	<canvas id="myCanve" class="container" width="800" height="600" style=" display:block;margin:24em auto; text-align:center;"></canvas>
+    <div  id="ta"></div>
+    <script>
+window.setTimeout("window.location='/Default.aspx'",8000);
+        var ctx;
+        var everything = [];
+        var cwidth = 1200;
+        var cheight = 600;
+        var updowntime = 0;
+        var rotatetime = 0;
+        var my = 2;
+        var updown;
+        var rotateangle = 0;
+
+        function Umbrellas(sx, sy, fillStyle) {
+            this.x = sx;
+            this.y = sy;
+            this.fillStyle = fillStyle;
+            this.draw = drawUmbrella;
+            this.moveit = moveumbrella;
+        }
+
+        function drawUmbrella() {
+            //先画半圆
+            ctx.fillStyle = this.fillStyle;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 30, 0, Math.PI, true);
+            ctx.closePath();
+            ctx.fill();
+
+            // ctx.save();
+            ctx.fillStyle = "blue";
+            ctx.fillRect(this.x - 1.5, this.y, 1.5, 40);//画伞柄 是一个细长的矩形
+            ctx.beginPath();
+            ctx.strokeStyle = "blue";
+            ctx.arc(this.x - 5, this.y + 40, 4, Math.PI, Math.PI * 2, true);//伞的钩子 是一个半圆
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        function moveumbrella(dx, dy) {
+            this.x += dx;
+            this.y += dy;
+        }
+
+        function init() {
+            ctx = document.getElementById("myCanve").getContext('2d');
+            ctx.translate(200, 300);
+            for (var i = 0; i < 10; i++) {
+                var um = new Umbrellas(i * 70, 0, "rgb(" + (30 * i) + "," + (255 - 30 * i) + ",255)");
+                everything.push(um);
+            }
+
+            updown = setInterval(change, 100);
+             setTimeout(function () {
+                 clearInterval(updown);
+                 ctx.translate(300,0);//改变中心点
+                 setInterval(rotat, 100);
+            }, 10000);
+         }
+
+        //updown  
+        function change() {
+            if (updowntime % 50 == 0) {
+                my = -my;
+            }
+            // 清屏要关注到原中心点
+            clear(-200,-300);
+            updowntime++;
+       
+            for (var i = 0; i < everything.length; i++) {
+                if (i % 2 == 0) {
+                    everything[i].moveit(0, my);
+                } else {
+                    everything[i].moveit(0, -my);
+                }
+                everything[i].draw();
+            }
+
+            $("#ta").html("坐标y:" + everything[0].y + "______updowntime:" + updowntime);
+
+            //放在这才有效 在执行方法里面停止
+            if (updowntime == 100) {
+                clearInterval(updown);
+                //过渡方法
+            }
+        }
+
+        //选择
+        function rotat() {
+            clear(-400, -300);
+            rotatetime++;
+
+
+            for (var i = 0; i < everything.length; i++) {
+                ctx.save();
+                ctx.rotate(Math.PI * (2 / 4 + i / 4));
+                ctx.translate(0, rotateangle);
+                // 统一坐标
+                everything[i].x = 0;
+                everything[i].y = 0;
+                everything[i].draw();
+                ctx.restore();
+            }
+            rotateangle++;
+            $("#ta").html("角度:" + rotateangle + "   rotatetime:" + rotatetime);
+
+            if (rotateangle == 70) {
+                rotateangle = -rotateangle;
+            }
+
+        }
+
+        function clear(x,y) {
+            ctx.clearRect(x, y, 1200, 600);
+        }
+
+
+        window.onload = function () {
+            init();
+        }
+    </script>
+</body>
+</html>
